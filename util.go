@@ -10,8 +10,9 @@ func Int64ToStr(i int64) string {
 	return strconv.FormatInt(i, 10)
 }
 
-//执行任务回调
+// 执行任务回调
 func returnCall(req *RunReq, code int64, msg string) []byte {
+
 	data := call{
 		&callElement{
 			LogID:      req.LogID,
@@ -24,44 +25,63 @@ func returnCall(req *RunReq, code int64, msg string) []byte {
 			HandleMsg:  msg,
 		},
 	}
+
 	str, _ := json.Marshal(data)
+
 	return str
+
 }
 
-//杀死任务返回
+// 杀死任务返回
 func returnKill(req *killReq, code int64) []byte {
+
 	msg := ""
+
 	if code != SuccessCode {
 		msg = "Task kill err"
 	}
+
 	data := res{
 		Code: code,
 		Msg:  msg,
 	}
+
 	str, _ := json.Marshal(data)
+
 	return str
+
 }
 
-//忙碌返回
+// 忙碌返回
 func returnIdleBeat(code int64) []byte {
+
 	msg := ""
+
 	if code != SuccessCode {
 		msg = "Task is busy"
 	}
+
 	data := res{
 		Code: code,
 		Msg:  msg,
 	}
+
 	str, _ := json.Marshal(data)
+
 	return str
+
 }
 
-//通用返回
+// 通用返回
 func returnGeneral() []byte {
+
 	data := &res{
 		Code: SuccessCode,
 		Msg:  "",
 	}
+
 	str, _ := json.Marshal(data)
+
 	return str
+
 }
